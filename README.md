@@ -6,28 +6,75 @@ Code snippet for create temporary URL for Azure Storage Account blob file.
 # Steps
 
 1. Canonicalize of blob file, in format `/blob/account/container/file`;
-2. Generate string to signature;
-3. Decode Account Key to use with string to signature;
-4. Encode decoded account key with signature using sha256;
-5. Encode url parameters with encoded signature;
-6. Concat mounted url for file with url parameters.
+2. Generate signature with parameters
+3. Encode url parameters with encoded signature;
+4. Concat mounted url for file with url parameters.
 
-# String to Sign
+# Signature
 
-String to sign must follow the format bellow.
+To create SAS signature and mount URL, follow bellow steps.
+
+- Mount a string to create signature with the format bellow.
 
 ```ini
-permissions\n
-start time\n
-expiry time\n
-canonicalized resource\n
-identifier\n
-IP address\n
-protocol\n
-version\n
-cache-control\n
-content-disposition\n
-content-encoding\n
-content-language\n
-content-type\n
+signedPermissions\n
+signedStart\n
+signedExpiry\n
+canonicalizedResource\n
+signedIdentifier\n
+signedIP\n
+signedProtocol\n
+signedVersion\n
+signedResource\n
+signedSnapshotTime\n
+signedEncryptionScope\n
+rscc\n
+rscd\n
+rsce\n
+rscl\n
+rsct
 ```
+
+- With this string and account key, generate signature, decoding account key, creating a HMAC-SHA256 sign and codifying it to base64.
+
+- With signature and parameters, mount query parameters with the format bellow.
+
+```ini
+sv=signedVersion
+&spr=signedProtocol
+&sp=signedPermissions
+&se=signedExpiry
+&sr=signedResource
+&sig=signature # Url encoded signature generated
+```
+
+# Run
+
+For php, build image with `Dockerfile-php`.
+
+```bash
+# Build image using file Dockerfile-php
+docker build -f Dockerfile-php -t storage-tmp-url .
+```
+
+For js, build image with `Dockerfile-js`.
+
+```bash
+# Build image using file Dockerfile-php
+docker build -f Dockerfile-js -t storage-tmp-url .
+```
+
+Then, run with command:
+
+```bash
+# Run image and remove container after run
+docler run --rm storage-tmp-url
+```
+
+# References
+
+[Create service SAS][create-service-sas]
+
+<!-- References -->
+
+[create-service-sas]: https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas
