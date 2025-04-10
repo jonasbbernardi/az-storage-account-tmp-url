@@ -54,21 +54,21 @@ For php, build image with `Dockerfile-php`.
 
 ```bash
 # Build image using file Dockerfile-php
-docker build -f Dockerfile-php -t storage-tmp-url .
+docker build --rm -f Dockerfile-php -t storage-tmp-url .
 ```
 
 For js, build image with `Dockerfile-js`.
 
 ```bash
 # Build image using file Dockerfile-php
-docker build -f Dockerfile-js -t storage-tmp-url .
+docker build --rm -f Dockerfile-js -t storage-tmp-url .
 ```
 
 Then, run with command:
 
 ```bash
 # Run image and remove container after run
-docler run --rm storage-tmp-url
+docker run --rm storage-tmp-url
 ```
 
 # References
