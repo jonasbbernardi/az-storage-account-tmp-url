@@ -7,6 +7,6 @@ COPY ./package.json /app/package.json
 RUN npm install
 
 COPY ./.env /app/.env
-COPY ./index.js /app/index.js
+COPY ./src/* /app/
 
-CMD ["node", "index.js"]
+CMD ["node", "get-file.js"]
