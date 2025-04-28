@@ -1,20 +1,6 @@
 const crypto = require('crypto');
-const moment = require('moment');
+const { getEnvironmentVariablesForGet } = require('./envs');
 require('dotenv').config();
-
-const getEnvironmentVariables = () => {
-  return {
-    permissions:    'r',
-    protocol:       'https',
-    signedResource: 'b',
-    signedVersion:  '2024-11-04',
-    expiryTime:     moment().add(5, 'minutes').format('YYYY-MM-DDTHH:mm:ss[Z]'),
-    accountName:    process.env.STORAGE_ACCOUNT_NAME,
-    accountKey:     process.env.STORAGE_ACCOUNT_KEY,
-    containerName:  process.env.CONTAINER_NAME,
-    blobName:       process.env.BLOB_FILE_NAME,
-  };
-}
 
 const montStringToSign = (vars, canonicalizedResource) => {
   const {
@@ -64,7 +50,7 @@ const mountUrlQueryParameters = (vars, signature) => {
 }
 
 const generateSasUrl = () => {
-  const vars = getEnvironmentVariables();
+  const vars = getEnvironmentVariablesForGet();
   const {
     accountName,
     accountKey,
