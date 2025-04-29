@@ -9,6 +9,7 @@ function getEnvironmentVariables() {
         'protocol'       => 'https',
         'signedResource' => 'b',
         'signedVersion'  => '2024-11-04',
+        'startTime'      => (new DateTime())->format('Y-m-d\TH:i:s\Z'),
         'expiryTime'     => (new DateTime('+5 minutes'))->format('Y-m-d\TH:i:s\Z'),
         'accountName'    => $env['STORAGE_ACCOUNT_NAME'],
         'accountKey'     => $env['STORAGE_ACCOUNT_KEY'],
@@ -28,7 +29,7 @@ function mountCaononicalizedResource($vars) {
 
 function mountStringToSign($vars, $canonicalizedResource) {
     $stringToSign = $vars['permissions'] . "\n"; // signedPermissions
-    $stringToSign .= "\n"; // signedStart
+    $stringToSign .= $vars['startTime'] . "\n"; // signedStart
     $stringToSign .= $vars['expiryTime'] . "\n"; // signedExpiry
     $stringToSign .= $canonicalizedResource . "\n"; // canonicalizedResource
     $stringToSign .= "\n"; // signedIdentifier
@@ -58,6 +59,7 @@ function mountUrlQueryParameters($vars, $signature) {
     $parameters = "sv=" . $vars['signedVersion'];
     $parameters .= "&spr=" . $vars['protocol'];
     $parameters .= "&sp=" . $vars['permissions'];
+    $parameters .= "&st=" . $vars['startTime'];
     $parameters .= "&se=" . $vars['expiryTime'];
     $parameters .= "&sr=" . $vars['signedResource'];
     $parameters .= "&sig=" . urlencode($signature);
