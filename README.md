@@ -24,7 +24,7 @@ Draw bellow ilustrates the flow with (blue) and without (red) SAS token.
 
 To create SAS signature and mount URL, follow bellow steps.
 
-- Mount a string to create signature with the format bellow.
+- Mount a string to create signature with the format bellow (empty fields must have the "\n").
 
 ```ini
 signedPermissions\n
@@ -45,7 +45,10 @@ rscl\n
 rsct
 ```
 
-- With this string and account key, generate signature, decoding account key, creating a HMAC-SHA256 sign and codifying it to base64.
+- With this string and account key, generate signature:
+  - decode account key;
+  - create a HMAC-SHA256 sign with decode account key;
+  - codify it to base64.
 
 - With signature and parameters, mount query parameters with the format bellow.
 
@@ -53,10 +56,13 @@ rsct
 sv=signedVersion
 &spr=signedProtocol
 &sp=signedPermissions
+$st=signedStart
 &se=signedExpiry
 &sr=signedResource
 &sig=signature # Url encoded signature generated
 ```
+
+**Important:** all fields filled in string to sign must be provided in query parameters.
 
 # Run
 
@@ -84,7 +90,9 @@ docker run --rm storage-tmp-url
 # References
 
 [Create service SAS][create-service-sas]
+[Put Blob from URL][put-blob-from-url]
 
 <!-- References -->
 
 [create-service-sas]: https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas
+[put-blob-from-url]: https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob-from-url?tabs=microsoft-entra-id
