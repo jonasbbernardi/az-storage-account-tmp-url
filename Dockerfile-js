@@ -9,4 +9,4 @@ RUN npm install
 COPY ./.env /app/.env
 COPY ./src/* /app/
 
-CMD ["node", "get-file.js"]
+CMD ["node", "index.js"]

@@ -59,7 +59,18 @@ const getEnvironmentVariablesForGet = () => {
   }
 }
 
+const getEnvironmentVariablesForPut = () => {
+  validateEnvironmentVariables(['SOURCE_URL']);
+  const vars = getDefaultEnvironmentVariables();
+
+  return {
+    permissions: 'rcw',
+    ...vars,
+    sourceUrl: process.env.SOURCE_URL
+  }
+}
+
 module.exports = {
-  validateEnvironmentVariables,
-  getEnvironmentVariablesForGet
+  getEnvironmentVariablesForGet,
+  getEnvironmentVariablesForPut
 }
