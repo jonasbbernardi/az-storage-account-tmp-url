@@ -11,7 +11,7 @@ Then, instead of all kilobytes or megabytes fill paths between user and machine 
 
 Draw bellow ilustrates the flow with (blue) and without (red) SAS token.
 
-[architecture-draw](./docs/architecture.drawio.png)
+![architecture-draw](./docs/architecture.drawio.png)
 
 # Steps
 
