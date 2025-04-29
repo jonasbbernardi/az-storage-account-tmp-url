@@ -1,7 +1,17 @@
 
 # Introdution
 
-Code snippet for create temporary URL for Azure Storage Account blob file.
+Code snippet for create URLs with Shared Access Signature (SAS) for Azure Storage Account blob file.
+
+# Architecture
+
+To avoid hight traffic on downloading/uploading files from/to a storage account, SAS token can be used to temporary gives permissions to users or systems to specific file.
+
+Then, instead of all kilobytes or megabytes fill paths between user and machine where the main system is hosted, it's possible to make requests directly to Azure Storage Account.
+
+Draw bellow ilustrates the flow with (blue) and without (red) SAS token.
+
+[architecture-draw](./docs/architecture.drawio.png)
 
 # Steps
 
