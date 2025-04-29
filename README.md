@@ -89,8 +89,8 @@ docker run --rm storage-tmp-url
 
 # References
 
-[Create service SAS][create-service-sas]
-[Put Blob from URL][put-blob-from-url]
+- [Create service SAS][create-service-sas]
+- [Put Blob from URL][put-blob-from-url]
 
 <!-- References -->
 
